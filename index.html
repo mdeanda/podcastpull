@@ -6,12 +6,24 @@
 		<title>mdeanda/podcastpull</title>
 		<style>
 body {
-	font: 13px Helvetica, arial, freesans, clean, sans-serif;
+	font: 14px Helvetica, arial, freesans, clean, sans-serif;
 	line-height: 1.4;
+	max-width: 780px;
+	margin: 20px auto;
+	padding: 0 10px;
 }
 h1 {
-	font-size: 2.5em;
+	font-size: 32px;
 	border-bottom: thin solid #d0d0d0;
+	color: #333;
+}
+h2 {
+	font-size: 22px;
+	border-bottom: thin solid #d0d0d0;
+	color: #555;
+}
+a {
+	color: rgb(65,131,196);
 }
 ::selection, *::-moz-selection {
 	text-shadow: none;
@@ -22,12 +34,28 @@ h1 {
 	<body>
 		<h1>podcastpull</h1>
 		<section class="summary">
-			podcastpull is a small simple command line java program that can be used to quickly download podcasts. while searching for an application to help me download i found that everything was complicated and most required a ui and were hard to setup and understand. the result was podcastpull.
+			<h2>summary</h2>
+			<p>podcastpull is a small simple command line java program that can be used to quickly download podcasts. while searching for an application to help me download i found that everything was complicated and most required a ui and were hard to setup and understand. the result was podcastpull.</p>
+		</section>
+		<section class="usage">
+			<h2>usage</h2>
+			<p>download the latest jar file and from a command line run:</p>
+			<pre>java -jar podcastpull-1.0.jar</pre>
+			<p>you should get a basic command line parameter help page</p>
+			<pre>usage: podcastpull
+ -d,--dir &lt;arg&gt;       target base directory, defaults to './data'
+ -h,--help            print this message
+ -p,--podcast &lt;arg&gt;   source url for podcast (required)</pre>
 		</section>
 		<section class="downloads">
+			<h2>releases</h2>
 			<ul>
-				<li><a href="releases/podcastpull-1.0.jar">podcastpull-1.0.jar</a> - first release. includes basic command line support to download an entire podcast via command line. easy to run using <code>java -jar podcastpull-1.0.jar</code>.
+				<li><a href="releases/podcastpull-1.0.jar">podcastpull-1.0.jar</a> - first release. includes basic command line support to download an entire podcast via command line.</li>
 			</ul>
+		</section>
+		<section class="source">
+			<h2>source</h2>
+			<p>the source is available on <a href="https://github.com/mdeanda/podcastpull">github</a></p>
 		</section>
 	</body>
 </html>

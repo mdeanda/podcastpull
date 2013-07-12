@@ -1,52 +1,46 @@
 package com.thedeanda.podcastpull;
 
-import com.sun.syndication.feed.synd.SyndCategoryImpl;
-import com.sun.syndication.feed.synd.SyndContentImpl;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndLinkImpl;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
-
-import java.net.URL;
-import java.util.List;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 public class Main {
 	public static void main(String[] args) {
+		// create the command line parser
+		CommandLineParser parser = new GnuParser();
+
+		// create the Options
+		Options options = new Options();
+		options.addOption("d", "dir", true,
+				"target base directory, defaults to './data'");
+		options.addOption("p", "podcast", true,
+				"source url for podcast (required)");
+		options.addOption("h", "help", false, "print this message");
 
 		try {
-			URL feedUrl = new URL("http://www.kcrw.com/music/programs/tu/RSS");
+			// parse the command line arguments
+			CommandLine line = parser.parse(options, args);
 
-			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed feed = input.build(new XmlReader(feedUrl));
-
-			System.out.println("Feed Title: " + feed.getTitle());
-
-			// Get the entry items...
-			for (SyndEntry entry : (List<SyndEntry>) feed.getEntries()) {
-				System.out.println("Title: " + entry.getTitle());
-				System.out.println("Unique Identifier: " + entry.getUri());
-				System.out.println("Updated Date: " + entry.getUpdatedDate());
-
-				// Get the Links
-				for (SyndLinkImpl link : (List<SyndLinkImpl>) entry.getLinks()) {
-					System.out.println("Link: " + link.getHref());
-				}
-
-				// Get the Contents
-				for (SyndContentImpl content : (List<SyndContentImpl>) entry
-						.getContents()) {
-					System.out.println("Content: " + content.getValue());
-				}
-
-				// Get the Categories
-				for (SyndCategoryImpl category : (List<SyndCategoryImpl>) entry
-						.getCategories()) {
-					System.out.println("Category: " + category.getName());
-				}
+			// validate that block-size has been set
+			if (line.hasOption("help") || !line.hasOption("podcast")) {
+				HelpFormatter formatter = new HelpFormatter();
+				formatter.printHelp("podcastpull", options);
+				return;
 			}
-		} catch (Exception ex) {
-			System.out.println("Error: " + ex.getMessage());
+
+			String url = line.getOptionValue("podcast");
+			String dir = line.getOptionValue("dir", "./data");
+
+			PodcastPull pull = new PodcastPull(url);
+			pull.setBasePath(dir);
+			pull.run();
+
+		} catch (ParseException exp) {
+			System.out.println("Unexpected exception:" + exp.getMessage());
 		}
+
 	}
 }

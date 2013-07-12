@@ -44,15 +44,12 @@
 		<easyget dest="${lib.dir}">
 			<mirror url="http://jars.thedeanda.com"/>
 
-			<get path="org/apache/commons-cli" file="commons-cli-1.1.jar"/>
-			<get path="org/apache/commons-httpclient" file="commons-httpclient-3.1.jar"/>
+			<get path="org/apache/commons-cli" file="commons-cli-1.2.jar"/>
 			<get path="org/apache/commons-io" file="commons-io-1.4.jar"/>
-			<get path="org/apache/commons-lang" file="commons-lang-2.1.jar"/>
-			<get path="org/apache/commons-logging" file="commons-logging-1.0.4.jar"/>
 			<get path="org/apache/log4j" file="log4j-1.2.14.jar"/>
 
 			<get path="org/jdom" file="jdom-1.0.jar" />
-			<get path="net/java/rome" file="rome-1.0RC1.jar"/>
+			<get path="net/java/rome" file="rome-1.0.jar"/>
 		</easyget>
 	</target>
 
@@ -97,6 +94,7 @@
 						value="${main.class}"/>
 			</manifest>
 		</jar>
+		<delete dir="${temp.dir}"/>
 	</target>
 
 	<target name="run" depends="build" description="runs application">
